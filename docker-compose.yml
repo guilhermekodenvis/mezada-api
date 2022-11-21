@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    build: ./
+    container_name: mezada_api_node
+    ports:
+      - 3333:3333
+    volumes:
+      - ./:/usr/app
+
+  postgres:
+    image: postgres
+    container_name: mezada_database_postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=mezada
+      - POSTGRES_PASSWORD=mezada
+      - POSTGRES_DB=mezada
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+    driver: local
