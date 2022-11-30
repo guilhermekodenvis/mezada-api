@@ -6,15 +6,21 @@ import { ShowFamilyService } from '@modules/families/services/ShowFamilyService'
 
 class FamiliesController {
 	public async create(request: Request, response: Response): Promise<Response> {
+		const { familyName } = request.body
+
 		const createFamilyService = container.resolve(CreateFamilyService)
-		await createFamilyService.execute()
-		return response.send('Sucesso').status(201)
+		const family = await createFamilyService.execute({ familyName })
+
+		return response.json(family).status(201)
 	}
 
 	public async show(request: Request, response: Response): Promise<Response> {
+		const { id: familyId } = request.params
+
 		const showFamilyService = container.resolve(ShowFamilyService)
-		await showFamilyService.execute()
-		return response.send('Sucesso').status(201)
+		const family = await showFamilyService.execute(familyId)
+
+		return response.json(family).status(201)
 	}
 }
 

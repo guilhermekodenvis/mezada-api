@@ -9,16 +9,16 @@ import {
 @Entity('families')
 class Family {
 	@PrimaryGeneratedColumn('uuid')
-	id?: string
+	id!: string
 
 	@Column({ name: 'family_name' })
 	familyName!: string
 
 	@CreateDateColumn()
-	created_at?: Date
+	created_at!: Date
 
 	@UpdateDateColumn()
-	updated_at?: Date
+	updated_at!: Date
 }
 
 export { Family }
