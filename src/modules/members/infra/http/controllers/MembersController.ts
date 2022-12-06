@@ -7,21 +7,49 @@ import { UpdateMemberService } from '@modules/members/services/UpdateMemberServi
 
 class MembersController {
 	public async create(request: Request, response: Response): Promise<Response> {
+		const { name, profilePicture, email, phone, kinship, familyId } =
+			request.body
+
 		const createMemberService = container.resolve(CreateMemberService)
-		await createMemberService.execute()
-		return response.send('Sucesso').status(201)
+		const member = await createMemberService.execute({
+			name,
+			profilePicture,
+			email,
+			phone,
+			kinship,
+			familyId,
+		})
+
+		return response.json(member).status(201)
 	}
 
 	public async show(request: Request, response: Response): Promise<Response> {
+		const { id: memberId } = request.params
+
 		const showMemberService = container.resolve(ShowMemberService)
-		await showMemberService.execute()
-		return response.send('Sucesso').status(201)
+		const member = await showMemberService.execute(memberId)
+
+		return response.json(member).status(201)
 	}
 
 	public async update(request: Request, response: Response): Promise<Response> {
+		const { id: memberId } = request.params
+
+		const { name, profilePicture, bornDate, email, phone, status } =
+			request.body
+
 		const updateMemberService = container.resolve(UpdateMemberService)
-		await updateMemberService.execute()
-		return response.send('Sucesso').status(201)
+		const member = await updateMemberService.execute({
+			memberId,
+			name,
+			profilePicture,
+			bornDate,
+			email,
+			phone,
+			status,
+		})
+
+		return response.json(member).status(201)
 	}
 }
 

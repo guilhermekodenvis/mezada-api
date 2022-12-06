@@ -1,18 +1,33 @@
+import { getRepository, Repository } from 'typeorm'
+
 import { ICreateMemberDTO } from '@modules/members/dtos/ICreateMemberDTO'
-import { IUpdateMemberDTO } from '@modules/members/dtos/IUpdateMemberDTO'
 import { IMembersRepository } from '@modules/members/repositories/IMembersRepository'
 
 import { Member } from '../entities/Member'
 
 class MembersRepository implements IMembersRepository {
-	create(data: ICreateMemberDTO): Promise<Member> {
-		throw new Error('Method not implemented.')
+	private ormRepository: Repository<Member>
+
+	constructor() {
+		this.ormRepository = getRepository(Member)
 	}
-	findOneById(id: string): Promise<Member | undefined> {
-		throw new Error('Method not implemented.')
+
+	async create(data: ICreateMemberDTO): Promise<Member> {
+		const member = this.ormRepository.create(data)
+
+		await this.ormRepository.save(member)
+
+		return member
 	}
-	update(data: IUpdateMemberDTO): Promise<Member> {
-		throw new Error('Method not implemented.')
+
+	async findOneById(memberId: string): Promise<Member | undefined> {
+		const member = await this.ormRepository.findOne(memberId)
+
+		return member
+	}
+
+	async update(member: Member): Promise<void> {
+		await this.ormRepository.save(member)
 	}
 }
 

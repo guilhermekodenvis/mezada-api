@@ -21,7 +21,7 @@ class FamiliesRepository implements IFamiliesRepository {
 	}
 
 	async findOneById(familyId: string): Promise<Family | undefined> {
-		const family = await this.ormRepository.findOneOrFail(familyId)
+		const family = await this.ormRepository.findOne(familyId)
 
 		return family
 	}

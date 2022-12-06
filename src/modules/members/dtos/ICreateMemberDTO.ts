@@ -1,10 +1,10 @@
 interface ICreateMemberDTO {
 	name: string
 	profilePicture: string
+	email?: string
 	phone: string
-	status: string
 	kinship: number // TODO: TRANSFORM INTO ENUM
-	familyId: string
+	familyId?: string
 }
 
 export { ICreateMemberDTO }
