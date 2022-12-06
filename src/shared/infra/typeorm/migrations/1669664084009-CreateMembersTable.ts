@@ -29,6 +29,7 @@ export class CreateMembersTable1669664084009 implements MigrationInterface {
 					{
 						name: 'email',
 						type: 'varchar',
+						isNullable: true,
 					},
 					{
 						name: 'phone',
@@ -46,6 +47,7 @@ export class CreateMembersTable1669664084009 implements MigrationInterface {
 					{
 						name: 'family_id',
 						type: 'uuid',
+						isNullable: true,
 					},
 					{
 						name: 'created_at',

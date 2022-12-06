@@ -9,7 +9,7 @@ import {
 @Entity('members')
 class Member {
 	@PrimaryGeneratedColumn('uuid')
-	id?: string
+	id!: string
 
 	@Column()
 	name!: string
@@ -18,7 +18,7 @@ class Member {
 	profilePicture!: string
 
 	@Column({ name: 'born_date' })
-	bornDate?: Date
+	bornDate?: string
 
 	@Column()
 	email?: string
@@ -33,13 +33,13 @@ class Member {
 	kinship!: number
 
 	@Column({ name: 'family_id' })
-	familyId!: string
+	familyId?: string
 
 	@CreateDateColumn()
-	created_at?: Date
+	created_at!: Date
 
 	@UpdateDateColumn()
-	updated_at?: Date
+	updated_at!: Date
 }
 
 export { Member }
