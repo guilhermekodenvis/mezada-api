@@ -1,18 +1,41 @@
+import { getRepository, Repository } from 'typeorm'
+
 import { ICreateTaskDTO } from '@modules/tasks/dtos/ICreateTaskDTO'
-import { IUpdateTaskDTO } from '@modules/tasks/dtos/IUpdateTaskDTO'
 import { ITasksRepository } from '@modules/tasks/repositories/ITasksRepository'
 
 import { Task } from '../entities/Task'
 
 class TasksRepository implements ITasksRepository {
-	create(data: ICreateTaskDTO): Promise<Task> {
-		throw new Error('Method not implemented.')
+	private ormRepository: Repository<Task>
+
+	constructor() {
+		this.ormRepository = getRepository(Task)
 	}
-	findManyByUserId(id: string): Promise<Task[]> {
-		throw new Error('Method not implemented.')
+
+	async findOne(taskId: string): Promise<Task | undefined> {
+		const task = await this.ormRepository.findOne(taskId)
+
+		return task
 	}
-	update(data: IUpdateTaskDTO): Promise<Task> {
-		throw new Error('Method not implemented.')
+
+	async create(data: ICreateTaskDTO): Promise<Task> {
+		const task = this.ormRepository.create(data)
+
+		await this.ormRepository.save(task)
+
+		return task
+	}
+
+	async findManyByMemberId(memberId: string): Promise<Task[]> {
+		const tasks = await this.ormRepository.find({
+			where: { createdById: memberId },
+		})
+
+		return tasks
+	}
+
+	async update(task: Task): Promise<Task> {
+		return this.ormRepository.save(task)
 	}
 }
 

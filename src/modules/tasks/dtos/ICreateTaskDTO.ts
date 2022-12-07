@@ -1,6 +1,6 @@
 interface ICreateTaskDTO {
 	taskName: string
-	startDate: Date
+	startDate: string
 	executionHour?: string
 	frequency?: number
 	frequencyKind?: number

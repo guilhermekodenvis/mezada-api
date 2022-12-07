@@ -26,8 +26,8 @@ class MembersRepository implements IMembersRepository {
 		return member
 	}
 
-	async update(member: Member): Promise<void> {
-		await this.ormRepository.save(member)
+	async update(member: Member): Promise<Member> {
+		return this.ormRepository.save(member)
 	}
 }
 

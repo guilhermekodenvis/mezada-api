@@ -9,15 +9,15 @@ import {
 @Entity('tasks')
 class Task {
 	@PrimaryGeneratedColumn('uuid')
-	id?: string
+	id!: string
 
-	@Column()
+	@Column({ name: 'task_name' })
 	taskName!: string
 
-	@Column()
-	startDate!: Date
+	@Column({ name: 'start_date' })
+	startDate!: string
 
-	@Column()
+	@Column({ name: 'execution_hour' })
 	executionHour?: string
 
 	@Column()

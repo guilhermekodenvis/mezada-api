@@ -4,7 +4,6 @@ import 'reflect-metadata'
 import { MemberKinship } from '../enums/MemberKinship'
 import { FakeMembersRepository } from '../repositories/fakes/FakeMembersRepository'
 import { IMembersRepository } from '../repositories/IMembersRepository'
-import { CreateMemberService } from './CreateMemberService'
 import { UpdateMemberService } from './UpdateMemberService'
 
 let updateMemberService: UpdateMemberService
