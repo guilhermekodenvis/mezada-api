@@ -8,6 +8,6 @@ const tasksHistoryRouter = Router()
 
 tasksHistoryRouter.post('/', tasksHistoryController.create)
 
-tasksHistoryRouter.get('/', tasksHistoryController.index)
+tasksHistoryRouter.get('/:id', tasksHistoryController.index)
 
 export { tasksHistoryRouter }

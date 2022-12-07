@@ -6,7 +6,7 @@ import { MembersRepository } from '@modules/members/infra/typeorm/repositories/M
 import { IMembersRepository } from '@modules/members/repositories/IMembersRepository'
 import { TasksRepository } from '@modules/tasks/infra/typeorm/repositories/TasksRepository'
 import { ITasksRepository } from '@modules/tasks/repositories/ITasksRepository'
-import { TasksHistoryRepository } from '@modules/tasksHistory/infra/typeorm/repositories/MembersRepository'
+import { TasksHistoryRepository } from '@modules/tasksHistory/infra/typeorm/repositories/TasksHistoryRepository'
 import { ITasksHistoryRepository } from '@modules/tasksHistory/repositories/ITasksHistoryRepository'
 
 container.registerSingleton<IFamiliesRepository>(

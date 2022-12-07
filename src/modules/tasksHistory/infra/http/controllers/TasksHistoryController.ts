@@ -2,19 +2,29 @@ import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
 import { CreateTaskHistoryService } from '@modules/tasksHistory/services/CreateTaskHistoryService'
-import { ShowTaskHistoryService } from '@modules/tasksHistory/services/ShowTaskHistoryService'
+import { ListTasksHistoryService } from '@modules/tasksHistory/services/ListTasksHistoryService'
 
 class TasksHistoryController {
 	public async create(request: Request, response: Response): Promise<Response> {
+		const { picture, taskId, concluedById } = request.body
+
 		const createTaskHistoryService = container.resolve(CreateTaskHistoryService)
-		await createTaskHistoryService.execute()
-		return response.send('Sucesso').status(201)
+		const taskHistory = await createTaskHistoryService.execute({
+			picture,
+			taskId,
+			concluedById,
+		})
+
+		return response.json(taskHistory).status(201)
 	}
 
 	public async index(request: Request, response: Response): Promise<Response> {
-		const showTaskHistoryService = container.resolve(ShowTaskHistoryService)
-		await showTaskHistoryService.execute()
-		return response.send('Sucesso').status(201)
+		const { id: memberId } = request.params
+
+		const listTasksHistoryService = container.resolve(ListTasksHistoryService)
+		const tasksHistory = await listTasksHistoryService.execute(memberId)
+
+		return response.json(tasksHistory).status(201)
 	}
 }
 
