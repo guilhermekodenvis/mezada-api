@@ -1,6 +1,22 @@
+import { inject, injectable } from 'tsyringe'
+
+import { AppError } from '@shared/erros/AppError'
+
+import { Task } from '../infra/typeorm/entities/Task'
+import { ITasksRepository } from '../repositories/ITasksRepository'
+
+@injectable()
 class ShowTaskService {
-	public async execute(): Promise<void> {
-		console.log('Sucesso.')
+	constructor(
+		@inject('TasksRepository')
+		private tasksRepository: ITasksRepository,
+	) {}
+	public async execute(taskId: string): Promise<Task> {
+		const task = await this.tasksRepository.findOne(taskId)
+
+		if (!task) throw new AppError('Wrong TaskId. Please try again.')
+
+		return task
 	}
 }
 

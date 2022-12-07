@@ -24,11 +24,12 @@ class FakeMembersRepository implements IMembersRepository {
 		return findMember
 	}
 
-	async update(member: Member): Promise<void> {
+	async update(member: Member): Promise<Member> {
 		const findMemberIndex = this.members.findIndex(
 			findMember => findMember.id === member.id,
 		)
 		this.members[findMemberIndex] = member
+		return this.members[findMemberIndex]
 	}
 }
 

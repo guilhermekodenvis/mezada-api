@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@shared/erros/AppError'
+import { formatDateToSaveInDatabase } from '@shared/utils/formatDateToSaveInDatabase'
 
 import { IUpdateMemberDTO } from '../dtos/IUpdateMemberDTO'
 import { Member } from '../infra/typeorm/entities/Member'
@@ -15,11 +16,9 @@ class UpdateMemberService {
 	public async execute(data: IUpdateMemberDTO): Promise<Member> {
 		const { bornDate } = data
 
-		const explodedBornDate = bornDate.split('/')
-
 		const memberData = {
 			...data,
-			bornDate: `${explodedBornDate[2]}-${explodedBornDate[1]}-${explodedBornDate[0]}`,
+			bornDate: formatDateToSaveInDatabase(bornDate),
 		}
 
 		const member = await this.membersRepository.findOneById(data.memberId)
